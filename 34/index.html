@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>红楼梦34-35回深度分析</title>
+    <title>红楼梦34-35回深度解读</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
         
         :root {
             --pink: #FF9EB5;
-            --light-pink: #FFE4E1;
+            --light-pink: #FFD6E0;
             --purple: #BA55D3;
             --deep-purple: #663366;
-            --white: #FFF;
-            --shadow: 0 8px 20px rgba(150, 80, 150, 0.15);
+            --white: #FFF9FB;
+            --shadow: 0 10px 30px rgba(150, 80, 150, 0.2);
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
         body {
@@ -32,141 +33,209 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px;
+            padding: 40px;
             box-sizing: border-box;
             position: absolute;
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 1s, transform 1s;
-            transform: translateX(100%);
+            transition: var(--transition);
+            transform: translateX(120%) rotateY(20deg);
+            perspective: 1000px;
             text-align: center;
             overflow-y: auto;
         }
         
         .slide.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) rotateY(0);
         }
         
         .slide.prev {
-            transform: translateX(-100%);
+            transform: translateX(-120%) rotateY(-20deg);
         }
         
         h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             color: var(--deep-purple);
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            letter-spacing: 3px;
+            transform: translateY(-30px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active h1 {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         h2 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--purple);
-            margin-bottom: 30px;
-            border-bottom: 3px solid var(--pink);
-            padding-bottom: 10px;
+            margin-bottom: 40px;
+            border-bottom: 4px solid var(--pink);
+            padding-bottom: 15px;
             display: inline-block;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: var(--transition) 0.2s;
+        }
+        
+        .active h2 {
+            transform: scale(1);
+            opacity: 1;
         }
         
         h3 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--deep-purple);
-            margin: 25px 0 15px;
+            margin: 30px 0 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h3::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--pink), transparent);
         }
         
         p, li {
-            font-size: 2.2rem;
-            line-height: 1.8;
-            max-width: 900px;
-            margin: 15px 0;
+            font-size: 2.4rem;
+            line-height: 1.9;
+            max-width: 1000px;
+            margin: 20px 0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active p, .active li {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         ul {
             text-align: left;
-            margin: 25px 0;
-            width: 80%;
+            margin: 30px 0;
+            width: 85%;
         }
         
         .btn {
             background: linear-gradient(135deg, var(--purple), var(--deep-purple));
             color: white;
             border: none;
-            padding: 18px 35px;
-            font-size: 1.8rem;
+            padding: 20px 40px;
+            font-size: 2rem;
             border-radius: 50px;
             cursor: pointer;
-            margin: 15px;
-            transition: all 0.3s;
+            margin: 20px;
+            transition: var(--transition);
             box-shadow: var(--shadow);
             font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
         }
         
         .btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(150, 80, 150, 0.3);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(150, 80, 150, 0.4);
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
         }
         
         .btn-container {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             width: 100%;
             display: flex;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 40px;
             box-sizing: border-box;
+            z-index: 5;
         }
         
         .card {
-            background: white;
-            border-radius: 25px;
-            padding: 35px;
-            margin: 25px;
-            width: 85%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px;
+            width: 90%;
             box-shadow: var(--shadow);
-            transform: scale(0.97);
-            transition: all 0.5s;
+            transform: scale(0.95) translateY(50px);
+            transition: var(--transition);
             opacity: 0;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
         
         .card.active {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
             opacity: 1;
         }
         
         .comparison {
             display: flex;
             justify-content: space-around;
-            width: 90%;
-            margin: 30px auto;
+            width: 95%;
+            margin: 40px auto;
+            perspective: 1000px;
         }
         
         .character {
-            width: 45%;
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
+            width: 48%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 25px;
+            padding: 30px;
             box-shadow: var(--shadow);
-            transform: translateY(30px);
+            transform: rotateY(30deg) translateZ(50px);
             opacity: 0;
-            transition: all 0.6s;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
         
         .character.active {
-            transform: translateY(0);
+            transform: rotateY(0) translateZ(0);
             opacity: 1;
         }
         
         .question {
-            background: white;
-            border-radius: 25px;
-            padding: 35px;
-            margin: 30px auto;
-            width: 85%;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 40px auto;
+            width: 90%;
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            transform: scale(0.98);
+            transition: var(--transition);
+        }
+        
+        .question:hover {
+            transform: scale(1);
+            box-shadow: 0 15px 40px rgba(150, 80, 150, 0.3);
         }
         
         .question::before {
@@ -174,7 +243,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 8px;
+            width: 10px;
             height: 100%;
             background: linear-gradient(to bottom, var(--pink), var(--purple));
         }
@@ -182,62 +251,68 @@
         .option {
             background: var(--light-pink);
             border: 3px solid var(--pink);
-            border-radius: 15px;
-            padding: 18px;
-            margin: 15px;
+            border-radius: 20px;
+            padding: 20px 25px 20px 80px;
+            margin: 20px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 2rem;
+            transition: var(--transition);
+            font-size: 2.2rem;
             text-align: left;
             position: relative;
-            padding-left: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .option::before {
             content: attr(data-option);
             position: absolute;
-            left: 15px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            background: var(--pink);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 2rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         
         .option:hover {
             background: var(--pink);
-            transform: translateX(10px);
+            transform: translateX(15px);
+            color: white;
         }
         
         .answer {
             display: none;
             background: linear-gradient(135deg, var(--purple), var(--deep-purple));
             color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 25px;
-            font-size: 2rem;
-            animation: fadeIn 0.5s;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            font-size: 2.2rem;
+            animation: fadeIn 0.8s;
             text-align: left;
+            box-shadow: 0 10px 30px rgba(102, 51, 102, 0.3);
         }
         
         .answer-icon {
             display: inline-block;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             background: white;
             color: var(--deep-purple);
             border-radius: 50%;
             text-align: center;
-            line-height: 30px;
-            margin-right: 10px;
+            line-height: 40px;
+            margin-right: 15px;
             font-weight: bold;
+            font-size: 2rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         
         @keyframes fadeIn {
@@ -248,68 +323,87 @@
         .highlight {
             color: var(--deep-purple);
             font-weight: bold;
-            background: linear-gradient(transparent 60%, rgba(255,158,181,0.3) 40%);
-            padding: 0 3px;
+            background: linear-gradient(transparent 60%, rgba(255,158,181,0.4) 40%);
+            padding: 0 5px;
+            border-radius: 3px;
         }
         
         .quote {
             font-style: italic;
             color: var(--deep-purple);
-            border-left: 5px solid var(--pink);
-            padding: 15px 25px;
-            margin: 25px 0;
-            background: rgba(255,255,255,0.7);
-            border-radius: 0 15px 15px 0;
+            border-left: 6px solid var(--pink);
+            padding: 25px 35px;
+            margin: 30px 0;
+            background: rgba(255,255,255,0.8);
+            border-radius: 0 20px 20px 0;
             position: relative;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active .quote {
+            transform: translateX(0);
+            opacity: 1;
         }
         
         .quote::before {
             content: """;
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--pink);
             position: absolute;
-            left: 10px;
-            top: -15px;
-            opacity: 0.3;
+            left: 15px;
+            top: -10px;
+            opacity: 0.2;
+            font-family: serif;
         }
         
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
-            height: 10px;
+            height: 12px;
             background: linear-gradient(to right, var(--pink), var(--purple));
             width: 0%;
-            transition: width 0.5s;
+            transition: width 0.6s;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
         .page-number {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--purple);
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, var(--purple), var(--deep-purple));
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             box-shadow: var(--shadow);
             z-index: 10;
+            font-weight: bold;
         }
         
         .timeline {
             display: flex;
             justify-content: space-between;
-            width: 90%;
-            margin: 30px auto;
+            width: 95%;
+            margin: 40px auto;
             position: relative;
-            height: 100px;
+            height: 120px;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active .timeline {
+            transform: scale(1);
+            opacity: 1;
         }
         
         .timeline::before {
@@ -318,412 +412,690 @@
             top: 50%;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(to right, var(--pink), var(--purple));
             transform: translateY(-50%);
+            box-shadow: 0 3px 10px rgba(150, 80, 150, 0.3);
         }
         
         .timeline-item {
             position: relative;
             z-index: 1;
             text-align: center;
-            width: 120px;
+            width: 150px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active .timeline-item {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .timeline-dot {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             background: white;
-            border: 4px solid var(--purple);
+            border: 5px solid var(--purple);
             border-radius: 50%;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
         }
         
         .timeline-text {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--deep-purple);
             font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
         .analysis-box {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,158,181,0.3);
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,158,181,0.2);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .active .analysis-box {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .analysis-title {
-            font-size: 2.3rem;
+            font-size: 2.6rem;
             color: var(--purple);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--pink);
         }
         
         .analysis-title::before {
             content: "";
             display: inline-block;
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             background: var(--pink);
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 0 auto 20px;
+            display: block;
+            transition: all 0.8s;
+            transform: scale(0);
+        }
+        
+        .active .character-img {
+            transform: scale(1) rotate(360deg);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .zoom-in {
+            animation: zoomIn 0.8s forwards;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
     <div class="progress-bar"></div>
-    <div class="page-number">1/12</div>
+    <div class="page-number">1/18</div>
     
-    <!-- 封面 -->
+    <!-- 封面 (1/18) -->
     <div class="slide active">
         <h1>《红楼梦》第34-35回</h1>
-        <h2>人物形象深度解析</h2>
-        <p style="font-size: 2.8rem; color: var(--purple); margin-top: 50px;">"情中情因情感妹妹 错里错以错劝哥哥"</p>
-        <div style="margin-top: 50px;">
-            <p style="font-size: 2rem; color: var(--deep-purple);">汇报人：XXX</p>
+        <h2>人物形象深度解读</h2>
+        <div style="margin-top: 60px;">
+            <img src="https://i.imgur.com/JQZ2hXt.png" alt="红楼梦" class="character-img floating" style="width: 180px; height: 180px;">
         </div>
+        <p style="font-size: 3rem; color: var(--purple); margin-top: 50px; animation-delay: 0.3s">"情中情因情感妹妹 错里错以错劝哥哥"</p>
     </div>
     
-    <!-- 目录 -->
+    <!-- 目录 (2/18) -->
     <div class="slide">
         <h2>内容目录</h2>
         <div class="card">
             <ul>
-                <li>📖 两回内容情节梳理</li>
-                <li>👑 宝玉形象的多维分析</li>
-                <li>🌸 黛玉与宝钗的对比研究</li>
-                <li>👵 贾母的人物评价体系</li>
-                <li>💡 关键细节深度解读</li>
-                <li>❓ 互动知识测试</li>
+                <li style="transition-delay: 0.1s">📖 两回内容情节全景</li>
+                <li style="transition-delay: 0.2s">👑 宝玉形象四维解析</li>
+                <li style="transition-delay: 0.3s">🌸 黛玉宝钗对比研究</li>
+                <li style="transition-delay: 0.4s">👵 贾母评价体系分析</li>
+                <li style="transition-delay: 0.5s">💎 关键细节深度解读</li>
+                <li style="transition-delay: 0.6s">❓ 互动知识挑战赛</li>
             </ul>
+        </div>
+        
+        <div class="quote" style="transition-delay: 0.8s">
+            "《红楼梦》是一部'大旨谈情'的奇书，而34-35回正是情感表达的巅峰之作"
         </div>
     </div>
     
-    <!-- 情节梳理 -->
+    <!-- 情节时间线 (3/18) -->
     <div class="slide">
-        <h2>情节发展时间线</h2>
+        <h2>情节发展时间轴</h2>
+        
         <div class="timeline">
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.1s">
                 <div class="timeline-dot"></div>
                 <div class="timeline-text">宝玉挨打</div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.2s">
                 <div class="timeline-dot"></div>
-                <div class="timeline-text">袭人问缘由</div>
+                <div class="timeline-text">袭人问由</div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.3s">
                 <div class="timeline-dot"></div>
                 <div class="timeline-text">宝钗探望</div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.4s">
                 <div class="timeline-dot"></div>
                 <div class="timeline-text">黛玉探望</div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.5s">
                 <div class="timeline-dot"></div>
                 <div class="timeline-text">宝玉赠帕</div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item" style="transition-delay: 0.6s">
                 <div class="timeline-dot"></div>
-                <div class="timeline-text">莺儿打络子</div>
+                <div class="timeline-text">莺儿打络</div>
             </div>
         </div>
         
         <div class="card">
-            <div class="analysis-box">
-                <div class="analysis-title">情节结构特点</div>
-                <p>两回情节以<span class="highlight">宝玉挨打</span>为枢纽，通过不同人物的反应，形成<span class="highlight">辐射式结构</span>，全方位展示人物关系网。</p>
+            <div class="analysis-box" style="transition-delay: 0.3s">
+                <div class="analysis-title">叙事结构特点</div>
+                <p>以<span class="highlight">宝玉挨打</span>为<span class="highlight">枢纽事件</span>，通过<span class="highlight">辐射式结构</span>展现各人物反应，形成<span class="highlight">人物关系全景图</span>。</p>
             </div>
             
-            <div class="analysis-box">
-                <div class="analysis-title">叙事视角转换</div>
-                <p>从<span class="highlight">全知视角</span>（贾政打宝玉）到<span class="highlight">限知视角</span>（各人探望），最后回到<span class="highlight">全知视角</span>（贾母评价）。</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 宝玉形象分析 -->
-    <div class="slide">
-        <h2>贾宝玉形象三维解析</h2>
-        
-        <div class="comparison">
-            <div class="character">
-                <h3>情感世界</h3>
-                <p>• 对黛玉："你放心"的深意</p>
-                <p>• 赠旧帕的象征意义</p>
-                <p>• 怕黛玉哭坏身体的体贴</p>
-            </div>
-            <div class="character">
-                <h3>社会关系</h3>
-                <p>• 与父亲：畏惧又叛逆</p>
-                <p>• 对下人：平等相待</p>
-                <p>• 在姐妹中的地位</p>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="quote">
-                "我便为这些人死了，也是情愿的" —— 宝玉对袭人言，体现其<span class="highlight">情痴</span>本质
-            </div>
-            
-            <div class="question">
-                <p>宝玉挨打后首先想到的是？</p>
-                <div class="option" data-option="A" onclick="showAnswer(1, 0)">如何向父亲认错</div>
-                <div class="option" data-option="B" onclick="showAnswer(1, 1)">黛玉是否为他哭泣</div>
-                <div class="option" data-option="C" onclick="showAnswer(1, 2)">如何报复告密者</div>
+            <div class="question" style="transition-delay: 0.5s">
+                <p>宝玉挨打的直接导火索是？</p>
+                <div class="option" data-option="A" onclick="showAnswer(1, 0)">与戏子蒋玉菡交往</div>
+                <div class="option" data-option="B" onclick="showAnswer(1, 1)">贾环诬告强奸金钏</div>
+                <div class="option" data-option="C" onclick="showAnswer(1, 2)">不愿攻读科举文章</div>
                 <div id="answer1" class="answer">
-                    <span class="answer-icon">✓</span>正确答案：B. 黛玉是否为他哭泣 —— 体现宝玉<span class="highlight">情感优先</span>的思维模式
+                    <span class="answer-icon">✓</span>正确答案：B. 贾环诬告强奸金钏 —— 反映贾府<span class="highlight">嫡庶矛盾</span>的关键情节
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- 黛玉宝钗对比 -->
+    <!-- 宝玉情感世界 (4/18) -->
     <div class="slide">
-        <h2>黛玉与宝钗探望对比</h2>
+        <h2>宝玉情感世界解析</h2>
         
         <div class="comparison">
-            <div class="character">
+            <div class="character" style="transition-delay: 0.1s">
+                <img src="https://i.imgur.com/5v0VW3a.png" alt="宝玉" class="character-img">
+                <h3>对黛玉之情</h3>
+                <p>• "你放心"的深意</p>
+                <p>• 赠旧帕的象征</p>
+                <p>• 怕其哭坏的体贴</p>
+            </div>
+            <div class="character" style="transition-delay: 0.3s">
+                <img src="https://i.imgur.com/7jKjJnF.png" alt="宝玉" class="character-img">
+                <h3>对宝钗之情</h3>
+                <p>• 欣赏其才学</p>
+                <p>• 请莺儿打络</p>
+                <p>• 理性关怀的回应</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="quote" style="transition-delay: 0.5s">
+                "我便为这些人死了，也是情愿的" —— 宝玉对袭人言，展现其<span class="highlight">情痴</span>本质与<span class="highlight">生命价值观</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 宝玉社会关系 (5/18) -->
+    <div class="slide">
+        <h2>宝玉社会关系网络</h2>
+        
+        <div class="card">
+            <div style="display: flex; justify-content: space-around; width: 100%; margin: 30px 0;">
+                <div style="text-align: center; transform: scale(0); transition: var(--transition) 0.2s" class="active">
+                    <div style="width: 120px; height: 120px; background: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto 20px; box-shadow: var(--shadow);">宝玉</div>
+                    <div style="font-size: 2rem; color: var(--deep-purple); font-weight: bold;">核心人物</div>
+                </div>
+                
+                <div style="text-align: center; transform: scale(0); transition: var(--transition) 0.4s" class="active">
+                    <div style="width: 30px; height: 30px; background: var(--purple); border-radius: 50%; margin: 60px auto;"></div>
+                    <div style="height: 80px; border-left: 4px dotted var(--purple); margin: 0 auto;"></div>
+                    <div style="width: 100px; height: 100px; background: var(--light-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto; box-shadow: var(--shadow);">黛玉</div>
+                    <div style="font-size: 1.8rem; color: var(--purple); margin-top: 10px;">灵魂伴侣</div>
+                </div>
+                
+                <div style="text-align: center; transform: scale(0); transition: var(--transition) 0.6s" class="active">
+                    <div style="width: 30px; height: 30px; background: var(--purple); border-radius: 50%; margin: 60px auto;"></div>
+                    <div style="height: 80px; border-left: 4px dotted var(--purple); margin: 0 auto;"></div>
+                    <div style="width: 100px; height: 100px; background: var(--light-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto; box-shadow: var(--shadow);">宝钗</div>
+                    <div style="font-size: 1.8rem; color: var(--purple); margin-top: 10px;">理性知己</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-around; margin-top: 40px;">
+                <div style="text-align: center; transform: translateY(30px); opacity: 0; transition: var(--transition) 0.8s" class="active">
+                    <div style="width: 90px; height: 90px; background: #E0F7FA; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto; box-shadow: var(--shadow);">贾政</div>
+                    <div style="height: 30px; border-left: 3px solid var(--deep-purple); margin: 10px auto;"></div>
+                    <div style="font-size: 1.8rem; color: var(--deep-purple);">严厉管教</div>
+                </div>
+                
+                <div style="text-align: center; transform: translateY(30px); opacity: 0; transition: var(--transition) 1.0s" class="active">
+                    <div style="width: 90px; height: 90px; background: #F3E5F5; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto; box-shadow: var(--shadow);">袭人</div>
+                    <div style="height: 30px; border-left: 3px solid var(--pink); margin: 10px auto;"></div>
+                    <div style="font-size: 1.8rem; color: var(--deep-purple);">悉心照料</div>
+                </div>
+                
+                <div style="text-align: center; transform: translateY(30px); opacity: 0; transition: var(--transition) 1.2s" class="active">
+                    <div style="width: 90px; height: 90px; background: #E8F5E9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto; box-shadow: var(--shadow);">贾母</div>
+                    <div style="height: 30px; border-left: 3px solid var(--pink); margin: 10px auto;"></div>
+                    <div style="font-size: 1.8rem; color: var(--deep-purple);">溺爱庇护</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question" style="transition-delay: 1.4s">
+            <p>宝玉挨打后最先向谁倾诉？</p>
+            <div class="option" data-option="A" onclick="showAnswer(2, 0)">林黛玉</div>
+            <div class="option" data-option="B" onclick="showAnswer(2, 1)">薛宝钗</div>
+            <div class="option" data-option="C" onclick="showAnswer(2, 2)">袭人</div>
+            <div id="answer2" class="answer">
+                <span class="answer-icon">✓</span>正确答案：C. 袭人 —— 体现袭人作为<span class="highlight">贴身丫鬟</span>的特殊地位
+            </div>
+        </div>
+    </div>
+    
+    <!-- 黛玉宝钗对比1 (6/18) -->
+    <div class="slide">
+        <h2>黛玉与宝钗：情感表达对比</h2>
+        
+        <div class="comparison">
+            <div class="character" style="transition-delay: 0.1s">
+                <img src="https://i.imgur.com/KYjQZ2F.png" alt="黛玉" class="character-img">
                 <h3>林黛玉</h3>
                 <p>• <span class="highlight">无声之泣</span>：眼睛肿如桃</p>
-                <p>• 情感表达含蓄</p>
+                <p>• 情感深沉内敛</p>
                 <p>• "你可都改了吧"的双关</p>
                 <p>• 自我情感压抑</p>
             </div>
-            <div class="character">
+            <div class="character" style="transition-delay: 0.3s">
+                <img src="https://i.imgur.com/vV3mHrQ.png" alt="宝钗" class="character-img">
                 <h3>薛宝钗</h3>
-                <p>• <span class="highlight">理性关怀</span>：带药丸</p>
-                <p>• 直接指出宝玉过错</p>
+                <p>• <span class="highlight">理性关怀</span>：带冷香丸</p>
+                <p>• 直接指出过错</p>
                 <p>• "早听人一句话"的劝诫</p>
                 <p>• 社会规范代言人</p>
             </div>
         </div>
         
         <div class="card">
-            <div class="analysis-box">
-                <div class="analysis-title">行为差异根源</div>
-                <p>黛玉：<span class="highlight">还泪神话</span>的体现，情感纯粹性</p>
-                <p>宝钗：<span class="highlight">儒家教养</span>的产物，社会适应性</p>
+            <div class="quote" style="transition-delay: 0.5s">
+                "宝钗的理性与黛玉的感性，如同冰与火的对比，却都深深吸引着宝玉"
             </div>
-            
-            <div class="question">
-                <p>宝钗探望时带的什么药？</p>
-                <div class="option" data-option="A" onclick="showAnswer(2, 0)">人参养荣丸</div>
-                <div class="option" data-option="B" onclick="showAnswer(2, 1)">冷香丸</div>
-                <div class="option" data-option="C" onclick="showAnswer(2, 2)">活血化瘀丸</div>
-                <div id="answer2" class="answer">
-                    <span class="answer-icon">✓</span>正确答案：B. 冷香丸 —— 宝钗的<span class="highlight">专属象征</span>，暗示其"冷"的特质
+        </div>
+    </div>
+    
+    <!-- 黛玉宝钗对比2 (7/18) -->
+    <div class="slide">
+        <h2>探望场景文本细读</h2>
+        
+        <div class="card">
+            <h3>黛玉探望片段</h3>
+            <div class="quote" style="transition-delay: 0.2s">
+                "只见他两个眼睛肿的桃儿一般，满面泪光...此时黛玉虽不是嚎啕大哭，然越是这等无声之泣，气噎喉堵，更觉利害"
+            </div>
+            <div class="analysis-box" style="transition-delay: 0.4s">
+                <div class="analysis-title">文学手法分析</div>
+                <p>• <span class="highlight">视觉意象</span>：桃儿般的眼睛强化视觉效果</p>
+                <p>• <span class="highlight">对比手法</span>：无声之泣比大哭更有表现力</p>
+                <p>• <span class="highlight">生理描写</span>：气噎喉堵展现情感强度</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>宝钗探望片段</h3>
+            <div class="quote" style="transition-delay: 0.6s">
+                "宝钗见他睁开眼说话，不像先时，心中也宽慰了些，便点头叹道：'早听人一句话，也不至有今日！别说老太太、太太心疼，就是我们看着，心里也...'刚说了半句，又忙咽住"
+            </div>
+            <div class="question" style="transition-delay: 0.8s">
+                <p>宝钗话到嘴边又咽住，反映她什么性格？</p>
+                <div class="option" data-option="A" onclick="showAnswer(3, 0)">矜持守礼</div>
+                <div class="option" data-option="B" onclick="showAnswer(3, 1)">心机深沉</div>
+                <div class="option" data-option="C" onclick="showAnswer(3, 2)">言不由衷</div>
+                <div id="answer3" class="answer">
+                    <span class="answer-icon">✓</span>正确答案：A. 矜持守礼 —— 体现宝钗<span class="highlight">恪守封建礼教</span>的行为准则
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- 情感表达分析 -->
-    <div class="slide">
-        <h2>情感表达的文本细读</h2>
-        
-        <div class="card">
-            <h3>黛玉探望片段</h3>
-            <div class="quote">
-                "只见他两个眼睛肿的桃儿一般，满面泪光...此时黛玉虽不是嚎啕大哭，然越是这等无声之泣，气噎喉堵，更觉利害"
-            </div>
-            <p>• <span class="highlight">视觉意象</span>：桃儿般的眼睛</p>
-            <p>• <span class="highlight">身体语言</span>：无声之泣比大哭更有表现力</p>
-            <p>• <span class="highlight">情感压抑</span>：气噎喉堵的生理反应</p>
-        </div>
-        
-        <div class="card">
-            <h3>宝钗探望片段</h3>
-            <div class="quote">
-                "宝钗见他睁开眼说话，不像先时，心中也宽慰了些，便点头叹道：'早听人一句话，也不至有今日！别说老太太、太太心疼，就是我们看着，心里也...'刚说了半句，又忙咽住"
-            </div>
-            <p>• <span class="highlight">理性劝诫</span>：先批评后关心</p>
-            <p>• <span class="highlight">情感克制</span>：话说一半的矜持</p>
-            <p>• <span class="highlight">社会视角</span>：先提老太太、太太</p>
-        </div>
-    </div>
-    
-    <!-- 贾母评价分析 -->
+    <!-- 贾母评价1 (8/18) -->
     <div class="slide">
         <h2>贾母的人物评价体系</h2>
         
         <div class="card">
             <h3>第35回关键评价</h3>
-            <div class="quote">
+            <div class="quote" style="transition-delay: 0.2s">
                 "从我们家四个女孩儿算起，全不如宝丫头"
             </div>
-            <p>• <span class="highlight">比较标准</span>：以自家女孩为基准</p>
-            <p>• <span class="highlight">价值取向</span>：欣赏宝钗的周全稳重</p>
-            <p>• <span class="highlight">家族观念</span>：评价中暗含比较</p>
-        </div>
-        
-        <div class="card">
-            <div class="analysis-box">
-                <div class="analysis-title">评价背后的权力结构</div>
-                <p>贾母的评价不仅反映个人喜好，更是<span class="highlight">家族话语权</span>的体现，影响着众人在贾府的地位。</p>
+            
+            <div class="analysis-box" style="transition-delay: 0.4s">
+                <div class="analysis-title">评价标准分析</div>
+                <p>• <span class="highlight">比较基准</span>：以自家女孩为参照系</p>
+                <p>• <span class="highlight">价值取向</span>：欣赏宝钗的周全稳重</p>
+                <p>• <span class="highlight">家族观念</span>：评价中暗含比较</p>
             </div>
             
-            <div class="question">
+            <div class="analysis-box" style="transition-delay: 0.6s">
+                <div class="analysis-title">权力结构体现</div>
+                <p>贾母的评价不仅是个人喜好，更是<span class="highlight">家族话语权</span>的体现，直接影响各人在贾府的地位。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 贾母评价2 (9/18) -->
+    <div class="slide">
+        <h2>贾母评价背后的深意</h2>
+        
+        <div class="card">
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <div style="flex: 1; padding: 20px;">
+                    <img src="https://i.imgur.com/9qQYQ1W.png" alt="贾母" class="character-img" style="width: 180px; height: 180px;">
+                </div>
+                <div style="flex: 2;">
+                    <div class="analysis-box" style="transition-delay: 0.2s">
+                        <div class="analysis-title">评价对象</div>
+                        <p>• 宝钗："全不如宝丫头"</p>
+                        <p>• 凤姐："凤儿嘴乖"</p>
+                        <p>• 黛玉：未直接评价</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question" style="transition-delay: 0.4s">
                 <p>贾母说"四个女孩儿"不包括谁？</p>
-                <div class="option" data-option="A" onclick="showAnswer(3, 0)">元春</div>
-                <div class="option" data-option="B" onclick="showAnswer(3, 1)">探春</div>
-                <div class="option" data-option="C" onclick="showAnswer(3, 2)">黛玉</div>
-                <div id="answer3" class="answer">
+                <div class="option" data-option="A" onclick="showAnswer(4, 0)">元春</div>
+                <div class="option" data-option="B" onclick="showAnswer(4, 1)">探春</div>
+                <div class="option" data-option="C" onclick="showAnswer(4, 2)">黛玉</div>
+                <div id="answer4" class="answer">
                     <span class="answer-icon">✓</span>正确答案：A. 元春 —— 已入宫为妃，<span class="highlight">不在比较范围</span>内
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- 关键细节解读 -->
+    <!-- 关键细节1 (10/18) -->
     <div class="slide">
-        <h2>关键细节深度解读</h2>
+        <h2>关键细节：宝玉赠帕</h2>
         
         <div class="card">
-            <h3>宝玉赠帕的象征意义</h3>
-            <p>• <span class="highlight">私密性</span>：旧帕是贴身之物</p>
-            <p>• <span class="highlight">情感传递</span>：无法言说的情愫</p>
-            <p>• <span class="highlight">叛逆性</span>：违反礼教规范</p>
-            <p>• <span class="highlight">黛玉的反应</span>：题诗三首的深意</p>
-        </div>
-        
-        <div class="card">
-            <h3>莺儿打络子的伏笔</h3>
-            <p>• <span class="highlight">金玉良缘</span>的暗示</p>
-            <p>• 宝玉接近宝钗圈子的尝试</p>
-            <p>• 莺儿"巧手"的象征意义</p>
-        </div>
-        
-        <div class="question">
-            <p>宝玉让莺儿打什么颜色的络子？</p>
-            <div class="option" data-option="A" onclick="showAnswer(4, 0)">大红配金色</div>
-            <div class="option" data-option="B" onclick="showAnswer(4, 1)">松花配桃红</div>
-            <div class="option" data-option="C" onclick="showAnswer(4, 2)">葱绿配柳黄</div>
-            <div id="answer4" class="answer">
-                <span class="answer-icon">✓</span>正确答案：B. 松花配桃红 —— 色彩搭配体现宝玉的<span class="highlight">审美趣味</span>
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <div style="flex: 1; text-align: center;">
+                    <img src="https://i.imgur.com/5v0VW3a.png" alt="宝玉" class="character-img pulse" style="width: 150px; height: 150px; margin-bottom: 20px;">
+                    <div style="font-size: 2rem; color: var(--purple);">→</div>
+                    <img src="https://i.imgur.com/KYjQZ2F.png" alt="黛玉" class="character-img pulse" style="width: 150px; height: 150px; margin-top: 20px;">
+                </div>
+                <div style="flex: 2; padding-left: 40px;">
+                    <div class="analysis-box" style="transition-delay: 0.2s">
+                        <div class="analysis-title">象征意义</div>
+                        <p>• <span class="highlight">私密性</span>：旧帕是贴身之物</p>
+                        <p>• <span class="highlight">情感传递</span>：无法言说的情愫</p>
+                        <p>• <span class="highlight">叛逆性</span>：违反礼教规范</p>
+                    </div>
+                    
+                    <div class="analysis-box" style="transition-delay: 0.4s">
+                        <div class="analysis-title">黛玉反应</div>
+                        <p>• 题诗三首的深意</p>
+                        <p>• 情感宣泄的出口</p>
+                        <p>• 爱情确立的标志</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- 人物关系图 -->
+    <!-- 关键细节2 (11/18) -->
     <div class="slide">
-        <h2>人物关系网络</h2>
+        <h2>关键细节：莺儿打络子</h2>
         
         <div class="card">
-            <div style="display: flex; justify-content: space-around; width: 100%;">
-                <div style="text-align: center;">
-                    <div style="width: 100px; height: 100px; background: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto 15px;">宝玉</div>
-                    <div style="display: flex; justify-content: center;">
-                        <div style="margin: 0 15px;">
-                            <div style="width: 80px; height: 80px; background: var(--light-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto 10px;">黛玉</div>
-                            <div style="height: 30px; border-left: 3px dashed var(--purple); margin: 0 auto;"></div>
-                        </div>
-                        <div style="margin: 0 15px;">
-                            <div style="width: 80px; height: 80px; background: var(--light-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-purple); margin: 0 auto 10px;">宝钗</div>
-                            <div style="height: 30px; border-left: 3px dashed var(--purple); margin: 0 auto;"></div>
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <div style="flex: 1; text-align: center;">
+                    <img src="https://i.imgur.com/5v0VW3a.png" alt="宝玉" class="character-img" style="width: 120px; height: 120px;">
+                    <div style="display: flex; justify-content: center; align-items: center; margin: 20px 0;">
+                        <div style="width: 40px; height: 40px; background: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">+</div>
+                        <div style="margin: 0 20px; font-size: 2rem; color: var(--purple);">→</div>
+                        <img src="https://i.imgur.com/vV3mHrQ.png" alt="宝钗" class="character-img" style="width: 120px; height: 120px;">
+                    </div>
+                    <img src="https://i.imgur.com/7jKjJnF.png" alt="莺儿" class="character-img" style="width: 100px; height: 100px;">
+                </div>
+                <div style="flex: 2; padding-left: 40px;">
+                    <div class="analysis-box" style="transition-delay: 0.2s">
+                        <div class="analysis-title">情节意义</div>
+                        <p>• <span class="highlight">金玉良缘</span>的暗示</p>
+                        <p>• 宝玉接近宝钗圈子的尝试</p>
+                        <p>• 莺儿"巧手"的象征意义</p>
+                    </div>
+                    
+                    <div class="question" style="transition-delay: 0.4s">
+                        <p>宝玉让莺儿打什么颜色的络子？</p>
+                        <div class="option" data-option="A" onclick="showAnswer(5, 0)">大红配金色</div>
+                        <div class="option" data-option="B" onclick="showAnswer(5, 1)">松花配桃红</div>
+                        <div class="option" data-option="C" onclick="showAnswer(5, 2)">葱绿配柳黄</div>
+                        <div id="answer5" class="answer">
+                            <span class="answer-icon">✓</span>正确答案：B. 松花配桃红 —— 色彩搭配体现宝玉的<span class="highlight">独特审美</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div style="margin-top: 30px; display: flex; justify-content: space-around;">
-                <div style="text-align: center; width: 25%;">
-                    <div>贾政</div>
-                    <div style="height: 20px; border-left: 3px solid var(--deep-purple); margin: 5px auto;"></div>
-                    <div style="font-size: 1.6rem; color: var(--purple);">严厉管教</div>
-                </div>
-                <div style="text-align: center; width: 25%;">
-                    <div>袭人</div>
-                    <div style="height: 20px; border-left: 3px solid var(--pink); margin: 5px auto;"></div>
-                    <div style="font-size: 1.6rem; color: var(--purple);">悉心照料</div>
-                </div>
-                <div style="text-align: center; width: 25%;">
-                    <div>贾母</div>
-                    <div style="height: 20px; border-left: 3px solid var(--pink); margin: 5px auto;"></div>
-                    <div style="font-size: 1.6rem; color: var(--purple);">溺爱庇护</div>
-                </div>
-            </div>
         </div>
+    </div>
+    
+    <!-- 综合测试1 (12/18) -->
+    <div class="slide">
+        <h2>综合知识挑战赛</h2>
         
-        <div class="question">
-            <p>谁向贾政告密导致宝玉挨打？</p>
-            <div class="option" data-option="A" onclick="showAnswer(5, 0)">贾环</div>
-            <div class="option" data-option="B" onclick="showAnswer(5, 1)">袭人</div>
-            <div class="option" data-option="C" onclick="showAnswer(5, 2)">薛蟠</div>
-            <div id="answer5" class="answer">
-                <span class="answer-icon">✓</span>正确答案：A. 贾环 —— 反映贾府<span class="highlight">嫡庶矛盾</span>的重要情节
+        <div class="card" style="padding: 30px;">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <div style="width: 45%;">
+                    <div class="question">
+                        <p>1. 黛玉探望宝玉时说了什么？</p>
+                        <div class="option" data-option="A" onclick="showAnswer(6, 0)">"你从此可都改了吧"</div>
+                        <div class="option" data-option="B" onclick="showAnswer(6, 1)">"早听人一句话"</div>
+                        <div class="option" data-option="C" onclick="showAnswer(6, 2)">"你若是死了"</div>
+                        <div id="answer6" class="answer">
+                            <span class="answer-icon">✓</span>正确答案：A —— 表面劝改实为<span class="highlight">情感试探</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="width: 45%;">
+                    <div class="question">
+                        <p>2. 第35回宝玉想吃什么？</p>
+                        <div class="option" data-option="A" onclick="showAnswer(7, 0)">莲叶羹</div>
+                        <div class="option" data-option="B" onclick="showAnswer(7, 1)">火腿鲜笋汤</div>
+                        <div class="option" data-option="C" onclick="showAnswer(7, 2)">糖蒸酥酪</div>
+                        <div id="answer7" class="answer">
+                            <span class="answer-icon">✓</span>正确答案：A —— 贾府<span class="highlight">精致饮食</span>的代表
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- 综合测试 -->
+    <!-- 综合测试2 (13/18) -->
     <div class="slide">
-        <h2>综合知识测试</h2>
+        <h2>综合知识挑战赛</h2>
         
-        <div class="question">
-            <p>1. 黛玉探望宝玉时说了什么关键话语？</p>
-            <div class="option" data-option="A" onclick="showAnswer(6, 0)">"你从此可都改了吧"</div>
-            <div class="option" data-option="B" onclick="showAnswer(6, 1)">"早听人一句话，也不至有今日"</div>
-            <div class="option" data-option="C" onclick="showAnswer(6, 2)">"你若是死了，我做和尚去"</div>
-            <div id="answer6" class="answer">
-                <span class="answer-icon">✓</span>正确答案：A. "你从此可都改了吧" —— 表面劝改实则<span class="highlight">试探宝玉</span>的心意
-            </div>
-        </div>
-        
-        <div class="question" style="margin-top: 30px;">
-            <p>2. 第35回中宝玉最想吃什么？</p>
-            <div class="option" data-option="A" onclick="showAnswer(7, 0)">莲叶羹</div>
-            <div class="option" data-option="B" onclick="showAnswer(7, 1)">火腿鲜笋汤</div>
-            <div class="option" data-option="C" onclick="showAnswer(7, 2)">糖蒸酥酪</div>
-            <div id="answer7" class="answer">
-                <span class="answer-icon">✓</span>正确答案：A. 莲叶羹 —— 贾府<span class="highlight">精致饮食文化</span>的代表
+        <div class="card" style="padding: 30px;">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <div style="width: 45%;">
+                    <div class="question">
+                        <p>3. 谁向贾政告密？</p>
+                        <div class="option" data-option="A" onclick="showAnswer(8, 0)">贾环</div>
+                        <div class="option" data-option="B" onclick="showAnswer(8, 1)">袭人</div>
+                        <div class="option" data-option="C" onclick="showAnswer(8, 2)">薛蟠</div>
+                        <div id="answer8" class="answer">
+                            <span class="answer-icon">✓</span>正确答案：A —— <span class="highlight">嫡庶矛盾</span>的体现
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="width: 45%;">
+                    <div class="question">
+                        <p>4. 宝钗带的什么药？</p>
+                        <div class="option" data-option="A" onclick="showAnswer(9, 0)">人参养荣丸</div>
+                        <div class="option" data-option="B" onclick="showAnswer(9, 1)">冷香丸</div>
+                        <div class="option" data-option="C" onclick="showAnswer(9, 2)">活血化瘀丸</div>
+                        <div id="answer9" class="answer">
+                            <span class="answer-icon">✓</span>正确答案：B —— 宝钗<span class="highlight">性格象征</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- 主题升华 -->
+    <!-- 文学手法 (14/18) -->
     <div class="slide">
-        <h2>两回文学价值总结</h2>
+        <h2>文学艺术手法分析</h2>
         
         <div class="card">
-            <div class="analysis-box">
-                <div class="analysis-title">人物塑造艺术</div>
-                <p>通过<span class="highlight">对比手法</span>展现人物性格差异</p>
-                <p>利用<span class="highlight">细节描写</span>揭示内心世界</p>
-                <p>借助<span class="highlight">道具象征</span>深化主题（如手帕、药丸）</p>
+            <div class="analysis-box" style="transition-delay: 0.1s">
+                <div class="analysis-title">对比手法</div>
+                <p>• 黛玉<span class="highlight">无声之泣</span> vs 宝钗<span class="highlight">理性劝诫</span></p>
+                <p>• 宝玉<span class="highlight">情感至上</span> vs 贾政<span class="highlight">礼教至上</span></p>
+                <p>• 贾母<span class="highlight">公开称赞</span>宝钗 vs <span class="highlight">私下疼爱</span>黛玉</p>
             </div>
             
-            <div class="analysis-box">
-                <div class="analysis-title">社会文化意义</div>
-                <p>反映<span class="highlight">封建礼教</span>与<span class="highlight">个性解放</span>的冲突</p>
-                <p>展现<span class="highlight">贵族家庭</span>的人际关系网络</p>
-                <p>预示<span class="highlight">爱情悲剧</span>的发展走向</p>
+            <div class="analysis-box" style="transition-delay: 0.3s">
+                <div class="analysis-title">象征手法</div>
+                <p>• <span class="highlight">旧帕</span>：私密情感的载体</p>
+                <p>• <span class="highlight">冷香丸</span>：宝钗的理性克制</p>
+                <p>• <span class="highlight">莲叶羹</span>：贾府的精致生活</p>
             </div>
             
-            <div class="quote">
-                "《红楼梦》之伟大，在于它能够通过日常生活的细腻描写，展现整个时代的精神面貌。" —— 红学家评论
+            <div class="analysis-box" style="transition-delay: 0.5s">
+                <div class="analysis-title">伏笔设置</div>
+                <p>• 宝玉赠帕预示<span class="highlight">爱情发展</span></p>
+                <p>• 贾母评价暗示<span class="highlight">婚姻走向</span></p>
+                <p>• 莺儿打络埋下<span class="highlight">金玉良缘</span>伏笔</p>
             </div>
         </div>
     </div>
     
-    <!-- 结束页 -->
+    <!-- 主题思想 (15/18) -->
+    <div class="slide">
+        <h2>主题思想探究</h2>
+        
+        <div class="card">
+            <div class="analysis-box" style="transition-delay: 0.1s">
+                <div class="analysis-title">情与礼的冲突</div>
+                <p>• 宝玉的<span class="highlight">情感自由</span>追求</p>
+                <p>• 封建家族的<span class="highlight">礼教约束</span></p>
+                <p>• 个人意志与<span class="highlight">家族利益</span>的矛盾</p>
+            </div>
+            
+            <div class="analysis-box" style="transition-delay: 0.3s">
+                <div class="analysis-title">人物命运预示</div>
+                <p>• 黛玉的<span class="highlight">还泪</span>神话推进</p>
+                <p>• 宝钗的<span class="highlight">金玉良缘</span>铺垫</p>
+                <p>• 宝玉的<span class="highlight">出家</span>伏笔</p>
+            </div>
+            
+            <div class="quote" style="transition-delay: 0.5s">
+                "34-35回是《红楼梦》情感冲突的集中体现，也是全书悲剧走向的重要转折点"
+            </div>
+        </div>
+    </div>
+    
+    <!-- 红学观点 (16/18) -->
+    <div class="slide">
+        <h2>红学名家观点</h2>
+        
+        <div class="card">
+            <div style="display: flex; align-items: flex-start; margin-bottom: 30px;">
+                <img src="https://i.imgur.com/JQZ2hXt.png" alt="红学" class="character-img" style="width: 100px; height: 100px; margin-right: 30px;">
+                <div>
+                    <div class="analysis-box" style="transition-delay: 0.2s">
+                        <div class="analysis-title">周汝昌观点</div>
+                        <p>"宝玉赠帕是宝黛爱情的<span class="highlight">定情标志</span>，旧帕象征<span class="highlight">纯洁情感</span>，区别于世俗的金玉之说"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start;">
+                <img src="https://i.imgur.com/JQZ2hXt.png" alt="红学" class="character-img" style="width: 100px; height: 100px; margin-right: 30px;">
+                <div>
+                    <div class="analysis-box" style="transition-delay: 0.4s">
+                        <div class="analysis-title">王昆仑观点</div>
+                        <p>"宝钗探望时的理性劝诫，展现了她作为<span class="highlight">封建淑女</span>的典型形象，与黛玉形成鲜明对比"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question" style="transition-delay: 0.6s">
+                <p>哪位红学家提出"钗黛合一"论？</p>
+                <div class="option" data-option="A" onclick="showAnswer(10, 0)">俞平伯</div>
+                <div class="option" data-option="B" onclick="showAnswer(10, 1)">胡适</div>
+                <div class="option" data-option="C" onclick="showAnswer(10, 2)">周汝昌</div>
+                <div id="answer10" class="answer">
+                    <span class="answer-icon">✓</span>正确答案：A. 俞平伯 —— 认为钗黛是作者<span class="highlight">理想女性的两面</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 现代解读 (17/18) -->
+    <div class="slide">
+        <h2>现代视角解读</h2>
+        
+        <div class="card">
+            <div class="analysis-box" style="transition-delay: 0.1s">
+                <div class="analysis-title">心理学视角</div>
+                <p>• 宝玉的<span class="highlight">逆反心理</span>分析</p>
+                <p>• 黛玉的<span class="highlight">情感依恋</span>模式</p>
+                <p>• 宝钗的<span class="highlight">超我人格</span>体现</p>
+            </div>
+            
+            <div class="analysis-box" style="transition-delay: 0.3s">
+                <div class="analysis-title">女性主义视角</div>
+                <p>• 黛玉的<span class="highlight">自我表达</span>困境</p>
+                <p>• 宝钗的<span class="highlight">社会适应</span>策略</p>
+                <p>• 封建社会的<span class="highlight">性别规训</span></p>
+            </div>
+            
+            <div class="analysis-box" style="transition-delay: 0.5s">
+                <div class="analysis-title">教育启示</div>
+                <p>• 贾政<span class="highlight">棍棒教育</span>的反思</p>
+                <p>• 宝玉<span class="highlight">个性发展</span>的压抑</p>
+                <p>• 传统<span class="highlight">教育观念</span>的批判</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 结束页 (18/18) -->
     <div class="slide">
         <h1>感谢聆听</h1>
         <h2>《红楼梦》34-35回人物分析</h2>
         
-        <div style="margin-top: 50px;">
-            <div class="card" style="width: 70%;">
-                <h3>延伸思考问题</h3>
-                <p>• 宝玉挨打事件在全书结构中的作用？</p>
-                <p>• 黛玉与宝钗的情感表达方式反映怎样的文化差异？</p>
-                <p>• 贾母的评价标准对理解全书主题有何启示？</p>
-            </div>
+        <div style="margin-top: 60px;">
+            <img src="https://i.imgur.com/JQZ2hXt.png" alt="红楼梦" class="character-img floating" style="width: 200px; height: 200px;">
         </div>
         
-        <p style="font-size: 2.5rem; color: var(--purple); margin-top: 50px;">欢迎讨论交流！</p>
+        <div class="card" style="width: 70%; margin-top: 50px;">
+            <h3>延伸思考问题</h3>
+            <p>• 宝玉挨打事件在全书结构中的作用？</p>
+            <p>• 黛玉与宝钗的情感表达方式反映怎样的文化差异？</p>
+            <p>• 贾母的评价标准对理解全书主题有何启示？</p>
+        </div>
+        
+        <p style="font-size: 3rem; color: var(--purple); margin-top: 50px; animation: pulse 3s infinite;">欢迎讨论交流！</p>
     </div>
     
     <div class="btn-container">
@@ -743,6 +1115,12 @@
                 if (index === currentSlide) {
                     slide.classList.add('active');
                     slide.classList.remove('prev');
+                    
+                    // 触发元素动画
+                    const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question');
+                    elements.forEach((el, i) => {
+                        el.style.transitionDelay = `${i * 0.1}s`;
+                    });
                 } else if (index < currentSlide) {
                     slide.classList.remove('active');
                     slide.classList.add('prev');
@@ -759,16 +1137,6 @@
             // 显示/隐藏按钮
             document.getElementById('prevBtn').style.visibility = currentSlide === 0 ? 'hidden' : 'visible';
             document.getElementById('nextBtn').textContent = currentSlide === totalSlides - 1 ? '完成' : '下一页';
-            
-            // 触发卡片动画
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.card:not(.active), .character:not(.active)');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('active');
-                    }, index * 200);
-                });
-            }, 300);
         }
         
         function nextSlide() {
@@ -785,32 +1153,42 @@
             }
         }
         
-        function showAnswer(questionNum, optionIndex) {
+        function showAnswer(questionNum, correctIndex) {
             const answer = document.getElementById(`answer${questionNum}`);
             const options = document.querySelectorAll(`#answer${questionNum}`).previousElementSibling.querySelectorAll('.option');
             
             // 显示答案
             answer.style.display = 'block';
             
-            // 标记正确选项（这里简化处理，实际应根据正确答案设置）
+            // 标记选项
             options.forEach((opt, idx) => {
-                if (idx === optionIndex) {
-                    opt.style.background = '#C8E6C9';
+                if (idx === correctIndex) {
+                    opt.style.background = 'linear-gradient(135deg, #C8E6C9, #A5D6A7)';
                     opt.style.borderColor = '#4CAF50';
+                    opt.style.color = '#2E7D32';
+                    opt.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.3)';
                 } else {
-                    opt.style.background = '#FFCDD2';
+                    opt.style.background = 'linear-gradient(135deg, #FFCDD2, #EF9A9A)';
                     opt.style.borderColor = '#F44336';
-                    opt.style.opacity = '0.6';
+                    opt.style.color = '#C62828';
+                    opt.style.opacity = '0.7';
                 }
+                opt.style.pointerEvents = 'none';
             });
             
-            // 添加动画
-            setTimeout(() => {
-                answer.style.transform = 'scale(1.02)';
+            // 添加庆祝动画
+            if (currentSlide === 12 || currentSlide === 13) {
+                const fireworks = document.createElement('div');
+                fireworks.innerHTML = `
+                    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8rem; color: var(--purple); animation: zoomIn 0.8s forwards;">✓</div>
+                    </div>
+                `;
+                document.body.appendChild(fireworks);
                 setTimeout(() => {
-                    answer.style.transform = 'scale(1)';
-                }, 200);
-            }, 10);
+                    fireworks.remove();
+                }, 1000);
+            }
         }
         
         document.getElementById('nextBtn').addEventListener('click', nextSlide);
@@ -818,9 +1196,9 @@
         
         // 键盘控制
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                 nextSlide();
-            } else if (e.key === 'ArrowLeft') {
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                 prevSlide();
             }
         });
@@ -828,15 +1206,13 @@
         // 初始化
         updateSlide();
         
-        // 卡片动画初始化
-        setTimeout(() => {
-            const cards = document.querySelectorAll('.card, .character');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('active');
-                }, index * 200);
+        // 添加浮动效果
+        setInterval(() => {
+            const floatingElements = document.querySelectorAll('.floating');
+            floatingElements.forEach(el => {
+                el.style.animationDelay = `${Math.random() * 2}s`;
             });
-        }, 500);
+        }, 100);
     </script>
 </body>
 </html>
