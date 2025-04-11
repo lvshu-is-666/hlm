@@ -1117,7 +1117,7 @@
                 if (!el) console.error(`元素未找到: ${selector}`);
                 return el;
             }
-    
+
             function updateSlide() {
                 slides.forEach((slide, index) => {
                     if (index === currentSlide) {
@@ -1125,7 +1125,7 @@
                         slide.classList.remove('prev');
                         
                         // 触发元素动画
-                        const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question');
+                        const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question, .card');
                         elements.forEach((el, i) => {
                             el.style.transitionDelay = `${i * 0.1}s`;
                         });
