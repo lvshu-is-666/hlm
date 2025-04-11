@@ -1125,10 +1125,10 @@
                         slide.classList.remove('prev');
                         
                         // 触发元素动画
-                        const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question, .card');
-                        elements.forEach((el, i) => {
-                            el.style.transitionDelay = `${i * 0.1}s`;
-                        });
+                        //const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question, .card');
+                        //elements.forEach((el, i) => {
+                        //    el.style.transitionDelay = `${i * 0.1}s`;
+                        //});
 
                         // 强制触发重绘
                         void slide.offsetWidth;
