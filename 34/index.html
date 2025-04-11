@@ -1117,19 +1117,11 @@
                 if (!el) console.error(`元素未找到: ${selector}`);
                 return el;
             }
-
+            // 修改JS中的updateSlide函数
             function updateSlide() {
                 slides.forEach((slide, index) => {
                     if (index === currentSlide) {
                         slide.classList.add('active');
-                        slide.classList.remove('prev');
-                        
-                        // 触发元素动画
-                        //const elements = slide.querySelectorAll('h1, h2, p, li, .quote, .timeline, .timeline-item, .analysis-box, .character, .question, .card');
-                        //elements.forEach((el, i) => {
-                        //    el.style.transitionDelay = `${i * 0.1}s`;
-                        //});
-
                         // 强制触发重绘
                         void slide.offsetWidth;
                         // 重置内容元素状态
@@ -1137,15 +1129,10 @@
                             el.style.opacity = '1';
                             el.style.transform = 'none';
                         });
-                    } else if (index < currentSlide) {
-                        slide.classList.remove('active');
-                        slide.classList.add('prev');
                     } else {
                         slide.classList.remove('active');
-                        slide.classList.remove('prev');
                     }
                 });
-                
                 // 更新进度条和页码
                 // 安全更新进度条和页码
                 if (progressBar) progressBar.style.width = `${(currentSlide + 1) / totalSlides * 100}%`;
