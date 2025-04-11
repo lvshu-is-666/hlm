@@ -1129,6 +1129,14 @@
                         elements.forEach((el, i) => {
                             el.style.transitionDelay = `${i * 0.1}s`;
                         });
+
+                        // 强制触发重绘
+                        void slide.offsetWidth;
+                        // 重置内容元素状态
+                        slide.querySelectorAll('.card, .character').forEach(el => {
+                            el.style.opacity = '1';
+                            el.style.transform = 'none';
+                        });
                     } else if (index < currentSlide) {
                         slide.classList.remove('active');
                         slide.classList.add('prev');
