@@ -28,7 +28,7 @@
         
         .slide {
             width: 100vw;
-            height: 100vh;
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -182,7 +182,7 @@
             margin: 30px;
             width: 90%;
             box-shadow: var(--shadow);
-            transform: scale(0.95) translateY(50px);
+            transform: scale(1) translateY(50px);
             transition: var(--transition);
             opacity: 0;
             backdrop-filter: blur(5px);
@@ -190,7 +190,7 @@
         }
         
         .card.active {
-            transform: scale(1) translateY(0);
+            transform: scale(1.05) translateY(0);
             opacity: 1;
         }
         
@@ -203,12 +203,12 @@
         }
         
         .character {
-            width: 48%;
+            width: 46%;
             background: rgba(255,255,255,0.9);
             border-radius: 25px;
             padding: 30px;
             box-shadow: var(--shadow);
-            transform: rotateY(10deg) translateZ(50px);
+            transform: rotateY(3deg) translateZ(50px);
             opacity: 0;
             transition: var(--transition);
             backdrop-filter: blur(5px);
@@ -228,13 +228,13 @@
             width: 90%;
             box-shadow: var(--shadow);
             position: relative;
-            overflow: hidden;
-            transform: scale(0.98);
+            
+            transform: scale(1);
             transition: var(--transition);
         }
         
         .question:hover {
-            transform: scale(1);
+            transform: scale(1.02);
             box-shadow: 0 15px 40px rgba(150, 80, 150, 0.3);
         }
         
