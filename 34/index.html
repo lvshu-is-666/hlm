@@ -54,6 +54,22 @@
         .slide.prev {
             transform: translateX(-120%) rotateY(-20deg);
         }
+
+        /* 新增花瓣飘落动画 */
+        .petal {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(45deg, var(--pink), var(--purple));
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            animation: fall 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
         
         h1 {
             font-size: 4.5rem;
@@ -544,6 +560,17 @@
 <body>
     <div class="progress-bar"></div>
     <div class="page-number">1/18</div>
+
+    <!-- 生成花瓣 -->
+    <script>
+        for(let i=0; i<30; i++){
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random()*100 + 'vw';
+            petal.style.animationDelay = Math.random()*5 + 's';
+            document.body.appendChild(petal);
+        }
+    </script>
     
     <!-- 封面 (1/18) -->
     <div class="slide active">
@@ -565,7 +592,7 @@
                 <li style="transition-delay: 0.3s">🌸 黛玉宝钗对比研究</li>
                 <li style="transition-delay: 0.4s">👵 贾母评价体系分析</li>
                 <li style="transition-delay: 0.5s">💎 关键细节深度解读</li>
-                <li style="transition-delay: 0.6s">❓ 互动知识挑战赛</li>
+                <li style="transition-delay: 0.6s">📜 互动知识挑战赛</li>
             </ul>
         </div>
         
@@ -631,9 +658,12 @@
             <div class="character" style="transition-delay: 0.1s">
                 <img src="https://img.noobzone.ru/getimg.php?url=https://i.imgur.com/5v0VW3a.png" alt="宝玉" class="character-img">
                 <h3>对黛玉之情</h3>
-                <p>• "你放心"的深意</p>
-                <p>• 赠旧帕的象征</p>
-                <p>• 怕其哭坏的体贴</p>
+                <ul>
+                    <li>“你放心”的深意</li>
+                    <li>赠旧帕的象征</li>
+                    <li>怕其哭坏的体贴</li>
+                </ul>
+                
             </div>
             <div class="character" style="transition-delay: 0.3s">
                 <img src="https://img.noobzone.ru/getimg.php?url=https://i.imgur.com/7jKjJnF.png" alt="宝玉" class="character-img">
