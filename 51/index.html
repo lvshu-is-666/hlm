@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《红楼梦》51-60回人物形象分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-pink: #f8c8dc;
+            --light-pink: #fce4ec;
+            --dark-pink: #d81b60;
+            --primary-purple: #ce93d8;
+            --light-purple: #e1bee7;
+            --dark-purple: #7b1fa2;
+            --accent-gold: #ffd54f;
+            --text-dark: #4a235a;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(135deg, var(--light-pink), var(--light-purple));
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 装饰元素 */
+        .floral-decoration {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .floral-1 {
+            top: 5%;
+            left: 5%;
+            font-size: 15rem;
+            color: var(--dark-purple);
+            transform: rotate(-15deg);
+        }
+        
+        .floral-2 {
+            bottom: 10%;
+            right: 7%;
+            font-size: 12rem;
+            color: var(--dark-pink);
+            transform: rotate(25deg);
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(123, 31, 162, 0.25);
+            padding: 50px;
+            text-align: center;
+            display: none;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        opacity 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        
+        .slide.active {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, var(--dark-pink), var(--dark-purple));
+            z-index: 10;
+        }
+        
+        .slide::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--dark-purple), var(--dark-pink));
+            z-index: 10;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Ma Shan Zheng', cursive;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 5rem;
+            margin-top: 20px;
+            color: var(--dark-pink);
+            letter-spacing: 3px;
+            animation: titleGlow 3s infinite alternate;
+        }
+        
+        h2 {
+            font-size: 4rem;
+            margin: 30px 0;
+            color: var(--dark-purple);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--primary-purple));
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 3rem;
+            color: var(--dark-pink);
+            margin: 20px 0;
+        }
+        
+        p {
+            font-size: 2.4rem;
+            line-height: 1.8;
+            margin: 25px 0;
+            text-align: left;
+            padding: 0 20px;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 2.2rem;
+            border-left: 6px solid var(--primary-purple);
+            padding: 20px 35px;
+            margin: 35px 0;
+            background: rgba(206, 147, 216, 0.12);
+            border-radius: 0 12px 12px 0;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quote::before {
+            content: """;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 8rem;
+            position: absolute;
+            top: -30px;
+            left: 10px;
+            color: rgba(123, 31, 162, 0.15);
+        }
+        
+        .character-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 12px 30px rgba(123, 31, 162, 0.18);
+            border: 3px solid var(--primary-purple);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(123, 31, 162, 0.25);
+        }
+        
+        .character-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--dark-pink), var(--dark-purple));
+        }
+        
+        .character-name {
+            font-size: 3.2rem;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .character-name i {
+            margin-right: 15px;
+            color: var(--dark-purple);
+            font-size: 2.8rem;
+        }
+        
+        .character-traits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+            gap: 15px;
+        }
+        
+        .trait {
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: float 3s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--dark-pink), var(--dark-purple));
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 2.4rem;
+            border-radius: 60px;
+            cursor: pointer;
+            margin: 35px 20px;
+            transition: all 0.4s ease;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 20px rgba(123, 31, 162, 0.35);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark-purple), var(--dark-pink));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-7px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(123, 31, 162, 0.45);
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px auto;
+            max-width: 1000px;
+            box-shadow: 0 12px 30px rgba(123, 31, 162, 0.2);
+            border: 3px solid var(--primary-purple);
+            position: relative;
+        }
+        
+        .quiz-container::before {
+            content: "❝";
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 10rem;
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            color: rgba(123, 31, 162, 0.1);
+            transform: rotate(180deg);
+        }
+        
+        .question {
+            font-size: 2.6rem;
+            margin-bottom: 35px;
+            color: var(--dark-purple);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.6;
+            background: rgba(248, 200, 220, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--dark-pink);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .option {
+            background: white;
+            border: 3px solid var(--primary-pink);
+            border-radius: 15px;
+            padding: 25px;
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--primary-purple);
+            transition: width 0.3s ease;
+        }
+        
+        .option:hover {
+            background: var(--light-pink);
+            transform: translateX(15px);
+        }
+        
+        .option:hover::before {
+            width: 15px;
+        }
+        
+        .option.selected {
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--dark-purple);
+        }
+        
+        .option.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        
+        .option.correct::before {
+            background: #4caf50;
+            width: 15px;
+        }
+        
+        .option.incorrect {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #b71c1c;
+        }
+        
+        .option.incorrect::before {
+            background: #f44336;
+            width: 15px;
+        }
+        
+        .explanation {
+            font-size: 2.2rem;
+            margin-top: 35px;
+            padding: 25px;
+            background: rgba(255, 213, 79, 0.2);
+            border-radius: 15px;
+            display: none;
+            text-align: left;
+            animation: fadeIn 0.8s ease;
+            border-left: 5px solid var(--accent-gold);
+        }
+        
+        .character-img {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--primary-purple);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5.5rem;
+            position: relative;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .character-img::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple));
+            opacity: 0.9;
+            z-index: -1;
+        }
+        
+        .footer {
+            font-size: 2rem;
+            color: var(--dark-purple);
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 3px dashed var(--primary-purple);
+            width: 100%;
+            text-align: center;
+        }
+        
+        .page-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            position: sticky;
+            bottom: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dot {
+            width: 22px;
+            height: 22px;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            margin: 0 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .dot.active {
+            background: var(--dark-pink);
+            transform: scale(1.4);
+        }
+        
+        .dot::after {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--dark-pink);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .dot:hover::after {
+            opacity: 1;
+        }
+        
+        @keyframes titleGlow {
+            0% { 
+                text-shadow: 0 0 10px rgba(216, 27, 96, 0.5),
+                            0 0 20px rgba(216, 27, 96, 0.3); 
+            }
+            100% { 
+                text-shadow: 0 0 20px rgba(216, 27, 96, 0.8),
+                            0 0 40px rgba(216, 27, 96, 0.6),
+                            0 0 60px rgba(123, 31, 162, 0.5); 
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 3.8rem; }
+            h2 { font-size: 3.2rem; }
+            h3 { font-size: 2.8rem; }
+            p, .quote, .btn { font-size: 2rem; }
+            .character-name { font-size: 2.8rem; }
+            .trait { font-size: 1.8rem; padding: 10px 20px; }
+            .question { font-size: 2.2rem; }
+            .option { font-size: 2rem; padding: 20px; }
+            .character-img { width: 200px; height: 200px; font-size: 4.5rem; }
+            .slide { padding: 30px 20px; }
+            .btn { padding: 16px 35px; font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="floral-decoration floral-1">
+        <i class="fas fa-feather-alt"></i>
+    </div>
+    <div class="floral-decoration floral-2">
+        <i class="fas fa-feather"></i>
+    </div>
+    
+    <div class="container">
+        <!-- 封面页 -->
+        <div class="slide active" id="slide1">
+            <h1>《红楼梦》人物形象分析</h1>
+            <h2>第五十一至六十回</h2>
+            <div class="character-img">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 2.6rem; font-weight: bold;">
+                深入探究主要人物性格特征与命运走向
+            </p>
+            <div class="footer">
+                <p style="text-align: center;">汇报人：王平　·　日期：2025 年 6 月 4 日</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn next-btn">开始分析 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- 晴雯形象分析 -->
+        <div class="slide" id="slide2">
+            <h2>晴雯：心比天高，身为下贱</h2>
+            <div class="character-img" style="background: linear-gradient(135deg, #f48fb1, #ab47bc);">
+                <i class="fas fa-feather-alt"></i>
+				<img src="https://bkimg.cdn.bcebos.com/pic/f9198618367adab40595921e88d4b31c8701e422?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="晴雯 - 头像"></img>
+            </div>
+            
+            <div class="character-card">
+                <h3 class="character-name"><i class="fas fa-star"></i> 第五十二回：勇晴雯病补雀金裘</h3>
+                <p>晴雯不顾重病在身，连夜为宝玉补裘，这一情节深刻展现了她的多重性格特质：</p>
+                <div class="character-traits">
+                    <span class="trait" style="--i:1">心灵手巧</span>
+                    <span class="trait" style="--i:2">倔强不屈</span>
+                    <span class="trait" style="--i:3">忠心耿耿</span>
+                    <span class="trait" style="--i:4">率真任性</span>
+                </div>
+                <p class="quote">"说不得我挣命罢了！" —— 晴雯不顾病体，坚持为宝玉补裘</p>
+                <p>这一情节凸显了晴雯刚烈要强的性格，她虽为丫鬟却自尊自爱，不甘人后。她明知此举会加重病情，却依然选择"挣命"，这种宁折不弯的性格既令人敬佩，也预示了她"风流灵巧招人怨"的悲剧结局。</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn next-btn">下一页 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- 贾探春形象分析 -->
+        <div class="slide" id="slide3">
+            <h2>贾探春：才自精明志自高</h2>
+            <div class="character-img" style="background: linear-gradient(135deg, #ce93d8, #5e35b1);">
+                <i class="fas fa-chess-queen"></i>
+				<img src="https://bkimg.cdn.bcebos.com/pic/c2cec3fdfc039245022821b38394a4c27c1e25e9?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="贾探春 - 头像"></img>
+            </div>
+            
+            <div class="character-card">
+                <h3 class="character-name"><i class="fas fa-star"></i> 第五十五回：探春理家显才干</h3>
+                <p>王熙凤病休期间，探春协理荣国府，展现了卓越的管理才能和改革精神：</p>
+                <div class="character-traits">
+                    <span class="trait" style="--i:1">精明强干</span>
+                    <span class="trait" style="--i:2">公正严明</span>
+                    <span class="trait" style="--i:3">改革精神</span>
+                    <span class="trait" style="--i:4">自尊自强</span>
+                </div>
+                <p>关键改革措施体现了探春的远见卓识：</p>
+                <p>1. <strong>蠲免重复开支</strong> - 取消公子们上学的点心钱等重复支出，体现财政敏锐度</p>
+                <p>2. <strong>实行"承包责任制"</strong> - 将大观园分派专人管理，开源节流</p>
+                <p>3. <strong>严查账目漏洞</strong> - 对府中积弊进行整顿</p>
+                <p class="quote">"我但凡是个男人，可以出得去，我早走了，立出一番事业来！" —— 探春的感叹道出了封建社会中女性的无奈</p>
+                <p>探春的理家行为不仅是简单的管家，更是对贾府腐朽制度的挑战，展现了其超越时代局限的思想境界。</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn next-btn">下一页 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- 紫鹃形象分析 -->
+        <div class="slide" id="slide4">
+            <h2>紫鹃：慧婢试玉见真情</h2>
+            <div class="character-img" style="background: linear-gradient(135deg, #f8bbd0, #7e57c2);">
+                <i class="fas fa-heart"></i>
+				<img src="https://bkimg.cdn.bcebos.com/pic/c995d143ad4bd1135060448a5eafa40f4afb05dc?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="紫鹃 - 头像"></img>
+            </div>
+            
+            <div class="character-card">
+                <h3 class="character-name"><i class="fas fa-star"></i> 第五十七回：慧紫鹃情辞试莽玉</h3>
+                <p>紫鹃为试探宝玉对黛玉的感情，谎称黛玉要回苏州，导致宝玉急痛迷心：</p>
+                <div class="character-traits">
+                    <span class="trait" style="--i:1">聪慧机敏</span>
+                    <span class="trait" style="--i:2">忠心护主</span>
+                    <span class="trait" style="--i:3">心思细腻</span>
+                    <span class="trait" style="--i:4">敢于担当</span>
+                </div>
+                <p>这一事件的多重意义：</p>
+                <p>1. <strong>验证了宝玉对黛玉的深情</strong> - 宝玉的反应证明了他对黛玉的感情是超越世俗的</p>
+                <p>2. <strong>暴露了宝玉的痴情本质</strong> - 宝玉为情而痴的性格在此得到极致展现</p>
+                <p>3. <strong>展现了紫鹃对黛玉的深厚情谊</strong> - 超越了主仆关系，更像是姐妹情谊</p>
+                <p>4. <strong>为宝黛爱情悲剧埋下伏笔</strong> - 暗示了这段感情在贾府中的脆弱性</p>
+                <p class="quote">"万两黄金容易得，知心一个也难求" —— 紫鹃劝黛玉把握感情</p>
+                <p>紫鹃作为黛玉的贴身丫鬟，其智慧与忠诚在红楼众多丫鬟中独树一帜，她对宝黛关系的深刻理解甚至超越了许多主子。</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn next-btn">下一页 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+		
+        <!-- 赵姨娘与芳官冲突 -->
+        <div class="slide" id="slide5">
+            <h2>底层人物：矛盾冲突显世态</h2>
+            <div class="character-img" style="background: linear-gradient(45deg, #e1bee7, #4527a0);">
+                <i class="fas fa-restroom"></i>
+            </div>
+            
+            <div class="character-card">
+                <h3 class="character-name"><i class="fas fa-star"></i> 第五十九回：柳叶渚边嗔莺咤燕</h3>
+                <h3 class="character-name"><i class="fas fa-star"></i> 第六十回：茉莉粉替去蔷薇硝</h3>
+                <p>这两回展现了贾府底层人物的矛盾冲突：</p>
+                
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 30px;">
+                    <div style="width: 45%; min-width: 300px;">
+                        <h3 style="color: var(--dark-pink);">赵姨娘</h3>
+                        <div class="character-traits">
+                            <span class="trait" style="--i:1">心胸狭隘</span>
+                            <span class="trait" style="--i:2">愚昧无知</span>
+                            <span class="trait" style="--i:3">身份焦虑</span>
+                        </div>
+                        <p>作为贾政之妾，赵姨娘因地位尴尬而心理失衡，借小事发泄不满</p>
+                    </div>
+                    
+                    <div style="width: 45%; min-width: 300px;">
+                        <h3 style="color: var(--dark-pink);">芳官</h3>
+                        <div class="character-traits">
+                            <span class="trait" style="--i:3">天真任性</span>
+                            <span class="trait" style="--i:1">伶牙俐齿</span>
+                            <span class="trait" style="--i:2">不畏权势</span>
+                        </div>
+                        <p>作为戏班解散后留在贾府的伶人，芳官代表了新进贾府的年轻力量</p>
+                    </div>
+                </div>
+                
+                <p class="quote" style="margin-top: 30px;">"梅香拜把子——都是奴才" —— 芳官讽刺赵姨娘</p>
+                <p>这场冲突揭示了贾府内部等级制度的严苛和底层人物的生存困境。</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn next-btn">下一页 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- 互动问答 -->
+        <div class="slide" id="slide5">
+            <h2>《红楼梦》深度知识问答</h2>
+            <div class="character-img" style="background: linear-gradient(135deg, #d1c4e9, #311b92);">
+                <i class="fas fa-clipboard-question"></i>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question">1. 在"勇晴雯病补雀金裘"情节中，晴雯的行为反映了她怎样的性格特质？这些特质如何预示她的悲剧命运？</div>
+                <div class="options">
+                    <div class="option" data-correct="true">A. 倔强不屈、自尊自爱，这种宁折不弯的性格在封建等级制度下注定招致灾祸</div>
+                    <div class="option">B. 爱慕虚荣、争强好胜，这种性格导致她在贾府中树敌过多</div>
+                    <div class="option">C. 忠于职守、恪守本分，展现了封建社会中丫鬟的优秀品质</div>
+                    <div class="option">D. 聪明伶俐、善于表现，希望通过此举获得宝玉的特别青睐</div>
+                </div>
+                <div class="explanation">
+                    <p><strong>正确答案：A. 倔强不屈、自尊自爱，这种宁折不弯的性格在封建等级制度下注定招致灾祸</strong></p>
+                    <p>晴雯的"病补雀金裘"展现了她倔强不屈、自尊自爱的性格特质。她虽为丫鬟却心比天高，这种性格在封建等级森严的贾府中显得格格不入。她的行为超越了普通丫鬟的本分，表现出强烈的主体意识和人格尊严，这在当时的社会环境下被视为"不守本分"，最终导致她被逐出贾府，悲惨死去。曹雪芹通过晴雯的悲剧，批判了封建等级制度对人性的摧残。</p>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question">2. 探春在理家过程中推行的"承包责任制"体现了她哪些改革思想？这些改革措施反映了当时怎样的社会矛盾？</div>
+                <div class="options">
+                    <div class="option">A. 体现了平均主义思想，反映了封建社会贫富分化的矛盾</div>
+                    <div class="option" data-correct="true">B. 体现了经济核算和激励机制，反映了封建家族经济管理的落后性</div>
+                    <div class="option">C. 体现了集权管理思想，反映了封建大家族内部权力斗争</div>
+                    <div class="option">D. 体现了人本管理思想，反映了封建等级制度下的人权问题</div>
+                </div>
+                <div class="explanation">
+                    <p><strong>正确答案：B. 体现了经济核算和激励机制，反映了封建家族经济管理的落后性</strong></p>
+                    <p>探春的"承包责任制"将大观园内的花草树木、池塘田地等分派给有专长的老妈妈们管理，既节省开支又增加收益。这体现了她的经济核算意识和激励管理思想，具有明显的资本主义萌芽特征。这些改革措施与贾府传统的铺张浪费、管理混乱形成鲜明对比，深刻反映了封建大家族经济管理的落后性和不可持续性。探春的改革虽然精明，但在整个封建制度腐朽的大环境下，终究是杯水车薪。</p>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question">3. "慧紫鹃情辞试莽玉"事件中，紫鹃试探宝玉的深层动机是什么？这一事件对宝黛爱情发展有何影响？</div>
+                <div class="options">
+                    <div class="option">A. 为黛玉争取名分，加速了贾府对宝黛婚事的认可</div>
+                    <div class="option">B. 报复宝玉对黛玉的冷淡，导致宝黛关系出现裂痕</div>
+                    <div class="option" data-correct="true">C. 确认宝玉真心以促黛玉把握感情，暴露了宝黛爱情的脆弱性</div>
+                    <div class="option">D. 展示自己作为丫鬟的影响力，间接提升在贾府的地位</div>
+                </div>
+                <div class="explanation">
+                    <p><strong>正确答案：C. 确认宝玉真心以促黛玉把握感情，暴露了宝黛爱情的脆弱性</strong></p>
+                    <p>紫鹃试探宝玉的深层动机是确认宝玉对黛玉的感情是否真诚，从而促使黛玉把握这段感情。这一事件虽然验证了宝玉的真心，但也暴露了宝黛爱情的脆弱性：</p>
+                    <p>1. 宝玉的过激反应显示其感情的不稳定性</p>
+                    <p>2. 事件引起贾府上下的关注，使宝黛关系公开化，增加了来自封建礼教的压力</p>
+                    <p>3. 黛玉因此事更加忧心忡忡，加重了病情</p>
+                    <p>4. 贾府长辈开始警觉，为日后"掉包计"埋下伏笔</p>
+                    <p>紫鹃的试探最终加速了宝黛爱情悲剧的到来，体现了在封建大家族中，个人情感在家族利益面前的无力感。</p>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn next-btn">下一页 <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- 结束页 -->
+        <div class="slide" id="slide6">
+            <h2>总结与思考</h2>
+            <div class="character-img" style="background: linear-gradient(135deg, #b39ddb, #283593);">
+                <i class="fas fa-book"></i>
+            </div>
+            
+            <div class="character-card">
+                <h3 class="character-name"><i class="fas fa-lightbulb"></i> 人物形象分析总结</h3>
+                <p>1. <strong>晴雯</strong>：身份卑微却心气高傲，"身为下贱，心比天高"的典型代表，她的悲剧是封建等级制度的必然结果</p>
+                <p>2. <strong>探<i class="fas fa-0"></i>春</strong>：具有改革精神的新女性，在"才自精明志自高"与"生于末世运偏消"的矛盾中挣扎</p>
+                <p>3. <strong>紫鹃</strong>：聪慧忠心的丫鬟典范，在宝黛爱情中扮演着超越阶级的知心人角色</p>
+                <p>4. <strong>赵姨娘与芳官</strong>：展现贾府底层人物的生存困境与阶级矛盾</p>
+                
+                <p class="quote" style="margin-top: 30px;">"满纸荒唐言，一把辛酸泪。都云作者痴，谁解其中味？"</p>
+                
+                <p>《红楼梦》的伟大之处在于它超越了简单的才子佳人故事，通过形形色色的人物命运，构建了一幅封建社会的全景图。在 51-60 回中，我们看到：</p>
+                <p><i class="fas fa-poo"></i> 人物性格既是命运的决定因素，又被时代所局限</p>
+                <p><i class="fas fa-poo"></i> 即使是丫鬟、戏子等小人物，也有其完整的人格和尊严</p>
+                <p><i class="fas fa-poo"></i> 贾府的衰败不仅体现在经济上，更体现在人际关系的异化上</p>
+            </div>
+            
+            <div class="footer">
+                <p style="text-align: center;">《红楼梦》人物形象分析　·　第五十一至六十回</p>
+				<p style="font-size: 1rem; text-align: center;"><i class="fas fa-compass"></i> 声明：本 html 文件<i class="fas fa-file-code"></i> 中部分内容由 生成式<i class="fas fa-a"></i><i class="fas fa-i"></i> 技术生成，已经过内容正确性交叉验证。</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn prev-btn"><i class="fas fa-arrow-left"></i> 上一页</button>
+                <button class="btn restart-btn"><i class="fas fa-redo"></i> 重新开始</button>
+            </div>
+        </div>
+        
+        <!-- 页面指示器 -->
+        <div class="page-indicator">
+            <div class="dot active" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+            <div class="dot" data-slide="3"></div>
+            <div class="dot" data-slide="4"></div>
+            <div class="dot" data-slide="5"></div>
+            <div class="dot" data-slide="6"></div>
+			<div class="dot" data-slide="7"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            
+            // 显示指定幻灯片
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[n].classList.add('active');
+                dots[n].classList.add('active');
+                currentSlide = n;
+                
+                // 平滑滚动到页面顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // 下一页
+            document.querySelectorAll('.next-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (currentSlide < slides.length - 1) {
+                        showSlide(currentSlide + 1);
+                    }
+                });
+            });
+            
+            // 上一页
+            document.querySelectorAll('.prev-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (currentSlide > 0) {
+                        showSlide(currentSlide - 1);
+                    }
+                });
+            });
+            
+            // 重新开始
+            document.querySelectorAll('.restart-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    showSlide(0);
+                });
+            });
+            
+            // 点指示器切换
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const slideIndex = parseInt(dot.getAttribute('data-slide')) - 1;
+                    showSlide(slideIndex);
+                });
+            });
+            
+            // 问答互动功能
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.quiz-container');
+                    const explanation = questionContainer.querySelector('.explanation');
+                    
+                    // 移除同一问题中其他选项的选中状态
+                    questionContainer.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    
+                    // 标记选中状态
+                    this.classList.add('selected');
+                    
+                    // 检查答案
+                    if (this.getAttribute('data-correct') === 'true') {
+                        this.classList.add('correct');
+                    } else {
+                        this.classList.add('incorrect');
+                        // 显示正确答案
+                        questionContainer.querySelector('.option[data-correct="true"]').classList.add('correct');
+                    }
+                    
+                    // 显示解析
+                    explanation.style.display = 'block';
+                    
+                    // 平滑滚动到解析位置
+                    explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+            
+            // 添加键盘导航
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    if (currentSlide < slides.length - 1) {
+                        showSlide(currentSlide + 1);
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    if (currentSlide > 0) {
+                        showSlide(currentSlide - 1);
+                    }
+                } else if (e.key === 'Home') {
+                    showSlide(0);
+                } else if (e.key === 'End') {
+                    showSlide(slides.length - 1);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
